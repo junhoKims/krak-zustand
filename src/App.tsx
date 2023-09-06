@@ -1,10 +1,11 @@
-import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import {useBearStore} from './hooks/stores/bear';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const bears = useBearStore(state => state.bears)
+  const { increase } = useBearStore(state => state.actions)
 
   return (
     <>
@@ -18,8 +19,8 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={() => increase()}>
+          bears is {bears}
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
