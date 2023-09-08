@@ -5,7 +5,7 @@ import { useBearStore } from "./hooks/stores/bear";
 
 function App() {
   const bears = useBearStore.use.bears();
-  const { increase } = useBearStore.use.actions();
+  const { increase, clear } = useBearStore.use.actions();
 
   return (
     <>
@@ -20,6 +20,7 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => increase()}>bears is {bears}</button>
+        <button onClick={() => clear()}>CLEAR</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
