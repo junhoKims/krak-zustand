@@ -1,4 +1,4 @@
-import { createActions } from "../../libs/zustand";
+import { createActions, createSelectors } from "../../libs/zustand";
 
 type BearState = {
   bears: number;
@@ -7,9 +7,11 @@ type BearState = {
   };
 };
 
-export const useBearStore = createActions<BearState>((set) => ({
-  bears: 0,
-  actions: {
-    increase: () => set((state) => ({ bears: state.bears + 1 })),
-  },
-}));
+export const useBearStore = createSelectors(
+  createActions<BearState>((set) => ({
+    bears: 0,
+    actions: {
+      increase: () => set((state) => ({ bears: state.bears + 1 })),
+    },
+  }))
+);

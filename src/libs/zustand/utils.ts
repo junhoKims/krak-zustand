@@ -38,4 +38,34 @@ export const createActions = <T, Mos extends [StoreMutatorIdentifier, unknown][]
   return create(initializer);
 };
 
-export const createSelectors = {}
+type WithSelectors<S> = S extends { getState: () => infer T }
+  ? S & { use: { [K in keyof T]: () => T[K] } }
+  : never;
+
+/**
+ * store의 state를 selector를 통해 아토믹하게 접근할 수 있도록 만들어주는 함수
+ *
+ * @example
+ * // 함수를 사용하여 selector로 직접 state에 접근할 수 있는 store를 리턴
+ * export const useBearStore = createSelectors(
+ *   createActions<BearState>(set => ({
+ *     bears: 0,
+ *     increase: by => set(state => ({ bears: state.bears + by })),
+ *   }))
+ * );
+ *
+ * // selector 접근 가능해진 store를 사용하여 state 가져오기
+ * const bears = useBearStore.use.bears()
+ * const increment = useBearStore.use.increment()
+ */
+export const createSelectors = <S extends UseBoundStore<StoreApi<object>>>(_store: S) => {
+  const store = _store as WithSelectors<typeof _store>;
+  store.use = {};
+
+  Object.keys(store.getState()).forEach(k => {
+    // @ts-ignore
+    store.use[k] = () => store(s => s[k as keyof typeof s]);
+  });
+
+  return store;
+};

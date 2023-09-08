@@ -1,11 +1,11 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import {useBearStore} from './hooks/stores/bear';
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { useBearStore } from "./hooks/stores/bear";
 
 function App() {
-  const bears = useBearStore(state => state.bears)
-  const { increase } = useBearStore(state => state.actions)
+  const bears = useBearStore.use.bears();
+  const { increase } = useBearStore.use.actions();
 
   return (
     <>
@@ -19,9 +19,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => increase()}>
-          bears is {bears}
-        </button>
+        <button onClick={() => increase()}>bears is {bears}</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
@@ -30,7 +28,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
