@@ -1,4 +1,4 @@
-import { createActions, createSelectors } from "../../libs/zustand";
+import { createActions, createSelectors } from "@/libs/zustand";
 
 type BearState = {
   bears: number;
