@@ -4,4 +4,3 @@
 ### Todos
 - [x] atomic하게 state를 가져오기
 - [x] state와 action을 분리하기
-- [ ] 특정 영역 내에서만 사용가능하도록 Context와 결합하기 (응집도를 높이기)
